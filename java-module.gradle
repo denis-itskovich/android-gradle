@@ -1,0 +1,4 @@
+apply plugin: 'java'
+apply from: "$rootProject.projectDir/gradle-scripts/retrolambda.gradle"
+apply from: "$rootProject.projectDir/gradle-scripts/java-apt.gradle"
+

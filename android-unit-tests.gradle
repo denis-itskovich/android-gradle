@@ -1,0 +1,16 @@
+assert rootProject.ext.properties.containsKey('junitVersion')
+assert rootProject.ext.properties.containsKey('mockitoVersion')
+assert rootProject.ext.properties.containsKey('robolectricVersion')
+
+android.testOptions.unitTests.all {
+    afterTest { descriptor, result ->
+        println "TEST ${result.resultType} - ${descriptor.name}"
+    }
+}
+
+dependencies {
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.robolectric:shadows-httpclient:$robolectricVersion"
+    testCompile "org.robolectric:robolectric:$robolectricVersion"
+}

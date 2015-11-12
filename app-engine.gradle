@@ -1,0 +1,47 @@
+assert rootProject.ext.properties.containsKey('appEngineVersion')
+assert rootProject.ext.properties.containsKey('googleStorageClientVersion')
+assert rootProject.ext.properties.containsKey('appEngineVersion')
+assert rootProject.ext.properties.containsKey('servletApiVersion')
+assert rootProject.ext.properties.containsKey('objectifyVersion')
+
+// If you would like more information on the gradle-appengine-plugin please refer to the github page
+// https://github.com/GoogleCloudPlatform/gradle-appengine-plugin
+
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+appengine {
+    downloadSdk = true
+    disableUpdateCheck = true
+
+    if ((System.getProperty('http.proxyHost') != null)) {
+        println ("Setting proxy configuration: ${System.getProperty('http.proxyHost')}:${System.getProperty('http.proxyPort')}")
+        jvmFlags = [
+                "-Dhttp.proxyHost=${System.getProperty('http.proxyHost')}", "-Dhttp.proxyPort=${System.getProperty('http.proxyPort')}",
+                "-Dhttps.proxyHost=${System.getProperty('http.proxyHost')}", "-Dhttps.proxyPort=${System.getProperty('http.proxyPort')}",
+                "-Dhttp.proxySet=true"
+        ]
+    }
+
+    appcfg {
+        oauth2 = true
+    }
+    endpoints {
+        getClientLibsOnBuild = true
+        getDiscoveryDocsOnBuild = true
+    }
+}
+
+//noinspection GroovyAssignabilityCheck
+dependencies {
+    appengineSdk "com.google.appengine:appengine-java-sdk:$appEngineVersion"
+    compile "com.google.appengine.tools:appengine-gcs-client:$googleStorageClientVersion"
+    compile "com.google.appengine:appengine-endpoints:$appEngineVersion"
+    compile "com.google.appengine:appengine-endpoints-deps:$appEngineVersion"
+    compile "javax.servlet:servlet-api:$servletApiVersion"
+    compile "com.googlecode.objectify:objectify:$objectifyVersion"
+
+    testCompile "com.google.appengine:appengine-testing:$appEngineVersion"
+    testCompile "com.google.appengine:appengine-api-stubs:$appEngineVersion"
+    testCompile "com.google.appengine:appengine-tools-sdk:$appEngineVersion"
+}

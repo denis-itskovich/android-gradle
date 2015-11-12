@@ -1,0 +1,54 @@
+apply plugin: 'com.moowork.grunt'
+
+ext {
+    webBuildDir = "$project.projectDir/web-build"
+}
+
+grunt {
+    // Set the directory where Gruntfile.js should be found
+    workDir = file("$project.webBuildDir")
+
+    // Whether colors should output on the terminal
+    colors = false
+
+    // Whether output from Grunt should be buffered - useful when running tasks in parallel
+    bufferOutput = false
+}
+
+node {
+    // Version of node to use.
+    version = '0.12.7'
+
+    // Version of npm to use.
+    npmVersion = '2.11.3'
+
+    // Enabled the automatic download. False is the default (for now).
+    download = true
+
+    // Set the work directory for unpacking node
+    workDir = file("$project.buildDir/nodejs")
+
+    // Set the work directory where node_modules should be located
+    nodeModulesDir = file("$project.webBuildDir")
+}
+
+task bowerInstall(dependsOn: 'npmInstall', type: NodeTask) {
+    script = file("$project.webBuildDir/node_modules/bower/bin/bower")
+    args = ['install', '--no-color', '--quiet']
+    execOverrides {
+        it.workingDir = "$project.projectDir/src/main/webapp"
+    }
+}
+
+grunt_build.dependsOn 'installGrunt'
+grunt_build.dependsOn 'npmInstall'
+grunt_build.dependsOn 'bowerInstall'
+
+//task explodedWar(type: Copy) {
+//    into "${rootProject.buildDir}/classes/artifacts/${project.name}/exploded/${project.name}.war"
+//    with war
+//}
+//
+//explodedWar.dependsOn war
+//explodedWar.dependsOn grunt_build
+war.dependsOn grunt_build
