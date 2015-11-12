@@ -1,0 +1,9 @@
+assert rootProject.ext.properties.containsKey('googlePlayServicesPluginVersion')
+assert rootProject.ext.properties.containsKey('playServicesVersion')
+
+apply plugin: "com.google.gms.google-services"
+
+dependencies {
+    compile "com.google.android.gms:play-services-identity:$playServicesVersion"
+    compile "com.google.android.gms:play-services-plus:$playServicesVersion"
+}

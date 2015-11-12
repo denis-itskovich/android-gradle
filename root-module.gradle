@@ -1,35 +1,3 @@
-apply from: "$rootProject.projectDir/versions.gradle"
-
-buildscript {
-    repositories {
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://jitpack.io" }
-    }
-
-    dependencies {
-        apply from: "$rootProject.projectDir/versions.gradle"
-
-        if (project.ext.properties.containsKey('androidBuildToolsPluginVersion')) classpath "com.android.tools.build:gradle:$androidBuildToolsPluginVersion"
-        if (project.ext.properties.containsKey('androidAptPluginVersion')) classpath "com.neenbedankt.gradle.plugins:android-apt:$androidAptPluginVersion"
-        if (project.ext.properties.containsKey('javaAptPluginVersion')) classpath "net.ltgt.gradle:gradle-apt-plugin:$javaAptPluginVersion"
-
-        if (project.ext.properties.containsKey('sdkManagerPluginDep')) classpath sdkManagerPluginDep
-        else if (project.ext.properties.containsKey('$sdkManagerPluginVersion')) classpath "com.jakewharton.sdkmanager:gradle-plugin:$sdkManagerPluginVersion"
-
-        if (project.ext.properties.containsKey('retrolambdaPluginDep')) classpath retrolambdaPluginDep
-        else if (project.ext.properties.containsKey('$retrolambdaPluginVersion')) classpath "me.tatarka:gradle-retrolambda:$retrolambdaPluginVersion"
-
-        if (project.ext.properties.containsKey('retrolambdaLombokPluginVersion')) classpath "me.tatarka.retrolambda.projectlombok:lombok.ast:$retrolambdaLombokPluginVersion"
-        if (project.ext.properties.containsKey('googlePlayServicesPluginVersion')) classpath "com.google.gms:google-services:$googlePlayServicesPluginVersion"
-        if (project.ext.properties.containsKey('appEngineVersion')) classpath "com.google.appengine:gradle-appengine-plugin:$appEngineVersion"
-        if (project.ext.properties.containsKey('gruntPluginVersion')) classpath "com.moowork.gradle:gradle-grunt-plugin:$gruntPluginVersion"
-        if (project.ext.properties.containsKey('gruntPluginVersion')) classpath "com.moowork.gradle:gradle-grunt-plugin:$gruntPluginVersion"
-    }
-
-    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
-}
-
 apply plugin: "idea"
 
 ideaProject.doLast {

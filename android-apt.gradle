@@ -1,3 +1,5 @@
+assert rootProject.ext.properties.containsKey('androidAptPluginVersion')
+
 apply plugin: "com.neenbedankt.android-apt"
 
 configurations {

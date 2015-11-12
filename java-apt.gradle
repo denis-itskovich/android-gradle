@@ -1,1 +1,3 @@
+assert rootProject.ext.properties.containsKey('javaAptPluginVersion')
+
 apply plugin: "net.ltgt.apt"

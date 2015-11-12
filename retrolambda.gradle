@@ -1,3 +1,6 @@
+assert rootProject.ext.properties.containsKey('retrolambdaLombokPluginVersion')
+assert rootProject.ext.properties.containsKey('retrolambdaPluginDep') || rootProject.ext.properties.containsKey('retrolambdaPluginVersion')
+
 apply plugin: 'me.tatarka.retrolambda'
 
 sourceCompatibility = JavaVersion.VERSION_1_8

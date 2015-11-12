@@ -16,6 +16,10 @@ if (isApplicationProject) {
     assert rootProject.ext.properties.containsKey('keyPassword')
 }
 
+assert rootProject.ext.properties.containsKey('androidBuildToolsPluginVersion')
+assert rootProject.ext.properties.containsKey('androidAptPluginVersion')
+assert rootProject.ext.properties.containsKey('sdkManagerPluginDep') || rootProject.ext.properties.containsKey('sdkManagerPluginVersion')
+
 apply plugin: "android-sdk-manager"
 apply plugin: "com.android.$project.androidProjectType"
 apply from: "$rootProject.projectDir/gradle-scripts/retrolambda.gradle"
@@ -29,9 +33,9 @@ android {
     signingConfigs {
         release {
             keyAlias project.name
-            if (rootProject.ext.properties.containsKey('keyStoreFile')) storeFile file(rootProject.keyStoreFile)
-            if (rootProject.ext.properties.containsKey('keyStorePassword')) storePassword rootProject.keyStorePassword
-            if (rootProject.ext.properties.containsKey('keyPassword')) keyPassword rootProject.keyPassword
+            storeFile file(rootProject.keyStoreFile)
+            storePassword rootProject.keyStorePassword
+            keyPassword rootProject.keyPassword
         }
     }
 

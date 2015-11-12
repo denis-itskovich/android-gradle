@@ -1,3 +1,5 @@
+assert rootProject.ext.properties.containsKey('gruntPluginVersion')
+
 apply plugin: 'com.moowork.grunt'
 
 ext {
